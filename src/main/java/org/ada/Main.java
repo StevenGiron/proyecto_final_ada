@@ -7,9 +7,9 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        int team = 8;
+        int team = 6;
         int min = 1;
-        int max = 6;
+        int max = 3;
         int[][] distance = {
             {0, 745, 665, 929, 0, 745, 665, 929,},
             {745, 0, 80, 337, 665, 80, 0, 380},
@@ -23,10 +23,10 @@ public class Main {
         IngenuousSolutionController controller = new IngenuousSolutionController(team, distance, min, max);
         int [][] calendarSolution = controller.createCalendarSolution();
 
-        /*System.out.println("Matriz soliucion");
+        System.out.println("Matriz solucion");
         for(int[] row: calendarSolution){
             System.out.println(Arrays.toString(row));
-        }*/
+        }
         //new IndexView();
     }
 }
