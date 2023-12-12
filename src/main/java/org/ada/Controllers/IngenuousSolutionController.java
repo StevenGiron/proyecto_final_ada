@@ -13,7 +13,6 @@ public class IngenuousSolutionController {
     private int min;
     private int max;
     private int[][] calendarSolution;
-    private boolean isPossible;
 
     public IngenuousSolutionController(int teams, int[][] distanceCities, int min, int max) {
         this.teams = teams;
@@ -21,23 +20,6 @@ public class IngenuousSolutionController {
         this.min = min;
         this.max = max;
         this.calendarSolution = new int[2 * (teams - 1)][teams];
-        this.isPossible = true;
-
-        int[][] nuevaMatriz = {
-                {6, 3, -2, -5, 4, -1},
-                {4, 6, 5, -1, -3, -2},
-                {-5, 4, 6, -2, 1, -3},
-                {-6, 5, -4, 3, -2, 1},
-                {-3, -4, 1, 2, -6, 5},
-                {3, -5, -1, -6, 2, 4},
-                {5, -3, 2, 6, -1, -4},
-                {-2, 1, 4, -3, 6, -5},
-                {-4, -6, -5, 1, 3, 2},
-                {2, -1, -6, 5, -4, 3}
-        };
-
-        boolean verified = verificarSecuencias(nuevaMatriz, max, min);
-        System.out.println("Matriz prueba verificacion: " + verified);
     }
 
     private void validateCalendarSolution(){
@@ -47,28 +29,6 @@ public class IngenuousSolutionController {
     public int[][] getMatrixSolution(){
         return calendarSolution;
     };
-
-    private ArrayList<Integer> findRowsAndColumns (int[][] A, int row, int column){
-        ArrayList<Integer> result = new ArrayList<>();
-
-        for (int[] ints : A) {
-            int number = ints[column];
-            if(number < 0){
-                number = number * -1;
-            }
-            result.add(number);
-        }
-
-        for(int j = 0; j < A[0].length; j++){
-            int number = A[row][j];
-            if(number < 0){
-                number = number * -1;
-            }
-            result.add(number);
-        }
-
-        return  result;
-    }
 
     public boolean verificarSecuencias(int[][] matriz, int max, int min) {
         int filas = matriz.length;
@@ -171,19 +131,28 @@ public class IngenuousSolutionController {
 
     public int[][] createCalendarSolution(){
         try{
+            int countTimes = 0;
             do {
+                countTimes++;
                 for(int i = 0; i < calendarSolution.length; i++){
                     int[] row = generateRow(i);
                     calendarSolution[i] = row;
                 }
+
+                System.out.println("Matriz numero: " + countTimes);
+                for(int[] row: calendarSolution){
+                    System.out.println(Arrays.toString(row));
+                }
+
+                System.out.println("countTimes = " + countTimes);
             }while(!isValid() || !verificarSecuencias(calendarSolution, max, min));
 
 
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
-        return calendarSolution;
 
+        return calendarSolution;
     }
 
     private int[] generateRow (int row){
@@ -196,19 +165,25 @@ public class IngenuousSolutionController {
 
             if(!availableNumber.isEmpty()){
                 if(rowGenerated[i] == 0){
+                    int countOpportunities = 0;
                     do{
+                        countOpportunities++;
                         int numberSelected = availableNumber.get(random.nextInt(availableNumber.size()));
                         int numberReflex = numberSelected > 0 ? (i + 1) * -1 : (i + 1);
                         int indexReflex = (numberSelected > 0 ? numberSelected : numberSelected * -1) - 1;
 
-                        consecutive = countConsecutive(row, i, (numberSelected >= 0));
-                        consecutiveReflex = countConsecutive(row, indexReflex, (numberReflex >= 0));
+                        consecutive = countConsecutive(row, i, (numberSelected > 0));
+                        consecutiveReflex = countConsecutive(row, indexReflex, (numberReflex > 0));
 
-                        if(consecutive <= max && consecutive >= min && consecutiveReflex <= max && consecutiveReflex >= min){
-                            rowGenerated[i] = numberSelected;
-                            rowGenerated[indexReflex] = numberReflex;
-                        }
-                    }while (consecutive > max || consecutive < min || consecutiveReflex > max || consecutiveReflex < min);
+
+                            if(consecutive <= max && consecutive >= min && consecutiveReflex <= max && consecutiveReflex >= min){
+                                rowGenerated[i] = numberSelected;
+                                rowGenerated[indexReflex] = numberReflex;
+                            }
+
+
+                    }while ((consecutive > max || consecutive < min || consecutiveReflex > max || consecutiveReflex < min) && countOpportunities <= 100);
+
                 }
             }
         }
@@ -248,19 +223,26 @@ public class IngenuousSolutionController {
 
     private int countConsecutive(int row, int column, boolean signNumber){
         int consecutive = 1;
-        if((row - max) >= 0){
-            for(int i = (row - 1); i > (row - max); i--){
-                // Cuenta los positivos
-                if(calendarSolution[i][column] != 0 && calendarSolution[i][column] > 0 && signNumber){
-                    consecutive++;
-                }
+        if((row + 1) >= min){
+            if((row - max) >= 0){
+                for(int i = (row - 1); i >= (row - max); i--){
+                    // Cuenta los positivos
+                    if(calendarSolution[i][column] != 0 && calendarSolution[i][column] > 0 && signNumber){
+                        consecutive++;
+                    }
 
-                // Cuenta los negativos
-                if(calendarSolution[i][column] != 0 && calendarSolution[i][column] < 0 && !signNumber){
-                    consecutive++;
+                    // Cuenta los negativos
+                    if(calendarSolution[i][column] != 0 && calendarSolution[i][column] < 0 && !signNumber){
+                        consecutive++;
+                    }
                 }
+            }else{
+                consecutive = min;
             }
+        }else{
+            consecutive = min;
         }
+
 
         return consecutive;
     }
@@ -268,9 +250,9 @@ public class IngenuousSolutionController {
     private boolean isValid (){
         int count = 0;
 
-        for (int i = 0; i < calendarSolution.length; i++) {
-            for (int j = 0; j < calendarSolution[i].length; j++) {
-                if (calendarSolution[i][j] == 0) {
+        for (int[] ints : calendarSolution) {
+            for (int anInt : ints) {
+                if (anInt == 0) {
                     count++;
                 }
             }

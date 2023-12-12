@@ -7,9 +7,9 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        int team = 6;
+        int team = 16;
         int min = 1;
-        int max = 3;
+        int max = 15;
         int[][] distance = {
             {0, 745, 665, 929, 0, 745, 665, 929,},
             {745, 0, 80, 337, 665, 80, 0, 380},
