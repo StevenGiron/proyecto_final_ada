@@ -1,7 +1,14 @@
 package org.ada.Controllers;
 
-import javax.swing.*;
-import java.io.*;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 public class FileController {
     private File file;
@@ -10,31 +17,40 @@ public class FileController {
     private int minLength;
     private int maxLength;
 
+    /**
+     * Constructor de la clase FileController.
+     * @param file El objeto File que representa el archivo asociado al controlador.
+     */
     public FileController(File file) {
         this.file = file;
     }
 
+    /**
+     * Valida el contenido de un archivo que se espera que contenga información sobre el problema.
+     * Lee y procesa la información del archivo, verificando que cumpla con el formato y los requisitos esperados.
+     * @return true si el archivo contiene información válida y se procesa correctamente, false de lo contrario.
+     */
     public boolean validateFileContent() {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             if ((line = br.readLine()) != null) {
                 numberTeams = Integer.parseInt(line);
             } else {
-                JOptionPane.showMessageDialog(null,"El archivo esta vacio o no tiene el formato esperado.");
+                JOptionPane.showMessageDialog(null, "El archivo esta vacio o no tiene el formato esperado.");
                 return false;
             }
 
             if ((line = br.readLine()) != null) {
                 minLength = Integer.parseInt(line);
             } else {
-                JOptionPane.showMessageDialog(null,"El archivo no tiene la longitud mínima especificada.");
+                JOptionPane.showMessageDialog(null, "El archivo no tiene la longitud mínima especificada.");
                 return false;
             }
 
             if ((line = br.readLine()) != null) {
                 maxLength = Integer.parseInt(line);
             } else {
-                JOptionPane.showMessageDialog(null,"El archivo no tiene la longitud máxima especificada.");
+                JOptionPane.showMessageDialog(null, "El archivo no tiene la longitud máxima especificada.");
                 return false;
             }
 
@@ -43,7 +59,7 @@ public class FileController {
                 if ((line = br.readLine()) != null) {
                     String[] values = line.split("\\s+");
                     if (values.length != numberTeams) {
-                        JOptionPane.showMessageDialog(null,"La fila " + (i + 1) + " no tiene la longitud esperada.");
+                        JOptionPane.showMessageDialog(null, "La fila " + (i + 1) + " no tiene la longitud esperada.");
                         return false;
                     }
                     for (int j = 0; j < numberTeams; j++) {
@@ -57,7 +73,7 @@ public class FileController {
 
             return true;
         } catch (IOException | NumberFormatException e) {
-            JOptionPane.showMessageDialog(null,"Error al leer o convertir datos.");
+            JOptionPane.showMessageDialog(null, "Error al leer o convertir datos.");
             return false;
         }
     }
@@ -78,16 +94,26 @@ public class FileController {
         return maxLength;
     }
 
+    /**
+     * Guarda la matriz de solución en un archivo de texto con información adicional.
+     *
+     * @param matrix        La matriz de solución que se va a guardar.
+     * @param teams         El número de equipos.
+     * @param min           El número mínimo permitido de ocurrencias consecutivas.
+     * @param max           El número máximo permitido de ocurrencias consecutivas.
+     * @param directoryPath La ruta del directorio donde se guardará el archivo.
+     */
     private static void saveMatrixToFile(int[][] matrix, int teams, int min, int max, String directoryPath) {
 
-        String filePath = directoryPath  + ".txt";
+        // Implementar lógica para guardar la matriz en un archivo
+        String filePath = directoryPath + ".txt";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writer.write(teams+"");
+            writer.write(teams + "");
             writer.newLine();
-            writer.write(min+"");
+            writer.write(min + "");
             writer.newLine();
-            writer.write(max+"");
+            writer.write(max + "");
             writer.newLine();
 
             for (int[] row : matrix) {
@@ -100,6 +126,12 @@ public class FileController {
         }
     }
 
+    /**
+     * Convierte un arreglo de enteros en una cadena de texto, separando los elementos por comas.
+     *
+     * @param array El arreglo de enteros que se va a convertir.
+     * @return Una cadena de texto que representa el arreglo.
+     */
     private static String arrayToString(int[] array) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < array.length; i++) {
@@ -113,6 +145,14 @@ public class FileController {
 
     // guardar el archivo en un directorio
 
+    /**
+     * Permite al usuario seleccionar un directorio y guarda la matriz de solución en un archivo.
+     *
+     * @param matrix La matriz de solución que se va a guardar.
+     * @param teams  El número de equipos.
+     * @param min    El número mínimo permitido de ocurrencias consecutivas.
+     * @param max    El número máximo permitido de ocurrencias consecutivas.
+     */
     public static void saveFile(int[][] matrix, int teams, int min, int max) {
         // Crear un cuadro de diálogo para seleccionar el directorio donde se guardará el archivo
         JFileChooser fileChooser = new JFileChooser();
@@ -124,7 +164,7 @@ public class FileController {
         // Si el usuario selecciona un directorio
         if (option == JFileChooser.APPROVE_OPTION) {
             // Obtener el directorio seleccionado
-            String directoryPath  = fileChooser.getSelectedFile().getAbsolutePath();
+            String directoryPath = fileChooser.getSelectedFile().getAbsolutePath();
 
             // Guardar la matriz de solución en un archivo con información adicional
             saveMatrixToFile(matrix, teams, min, max, directoryPath);
