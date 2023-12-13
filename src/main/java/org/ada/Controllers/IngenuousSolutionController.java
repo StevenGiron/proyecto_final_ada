@@ -3,10 +3,10 @@ package org.ada.Controllers;
 import java.util.ArrayList;
 import java.util.Random;
 
-/*
-*   IngenuousSolutionController
-*  Esta clase se encarga de generar una solucion ingenua para el problema de la generacion de un calendario de partidos
- */
+    /**
+    *   IngenuousSolutionController
+    *  Esta clase se encarga de generar una solucion ingenua para el problema de la generacion de un calendario de partidos
+    */
 public class IngenuousSolutionController {
     Random random = new Random();
     private static  final int OPPORTUNITIES_SELECT_NUMBER = 100;
@@ -16,7 +16,7 @@ public class IngenuousSolutionController {
     private final int max;
     private final int[][] calendarSolution;
 
-    /*
+    /**
     *   IngenuousSolutionController
     * Este metodo se encarga de inicializar los atributos de la clase
     * @param teams
@@ -33,7 +33,7 @@ public class IngenuousSolutionController {
         this.calendarSolution = new int[2 * (teams - 1)][teams];
     }
 
-    /*
+    /**
     *   getMatrixSolution
     * Este metodo se encarga de retornar la matriz solucion
     * @return int[][]
@@ -42,7 +42,7 @@ public class IngenuousSolutionController {
         return calendarSolution;
     };
 
-    /*
+    /**
     *   createCalendarSolution
     *  Este metodo se encarga de generar una solucion ingenua para el problema de la generacion de un calendario de partidos
     * @return void
@@ -66,7 +66,7 @@ public class IngenuousSolutionController {
         }
     }
 
-    /*
+    /**
     *   generateRow
     * Este metodo se encarga de generar una fila de la matriz solucion
     * @param row
@@ -86,7 +86,7 @@ public class IngenuousSolutionController {
         return rowGenerated;
     }
 
-    /*
+    /**
     *   generateValidNumbers
     * Este metodo se encarga de generar un numero valido para la fila de la matriz solucion
     * @param rowGenerated
@@ -117,7 +117,7 @@ public class IngenuousSolutionController {
         } while (!isValidPlacement(consecutive, consecutiveReflex) && countOpportunities <= OPPORTUNITIES_SELECT_NUMBER);
     }
 
-    /*
+    /**
     *   isValidPlacement
     * Este metodo se encarga de validar si el numero seleccionado es valido para la fila de la matriz solucion
     * @param consecutive
@@ -129,7 +129,7 @@ public class IngenuousSolutionController {
                 consecutiveReflex[0] <= max && consecutiveReflex[1] >= min;
     }
 
-    /*
+    /**
     *   findAvailableNumbers
     * Este metodo se encarga de encontrar los numeros disponibles para la fila de la matriz solucion
     * @param row
@@ -167,7 +167,7 @@ public class IngenuousSolutionController {
         return availableNumbers;
     }
 
-    /*
+    /**
     *   countConsecutive
     * Este metodo se encarga de contar los numeros consecutivos para la fila de la matriz solucion
     * @param row
@@ -213,7 +213,7 @@ public class IngenuousSolutionController {
         return new int[]{consecutiveMax, consecutiveMin};
     }
 
-    /*
+    /**
     *   isValid
     * Este metodo se encarga de validar si la matriz solucion es valida
     * @return boolean
