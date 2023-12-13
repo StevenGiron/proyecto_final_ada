@@ -49,8 +49,8 @@ public class IndexView {
                         int max = fileCOntroller.getMaxLength();
 
                         ingenuousSolutionController = new IngenuousSolutionController(teams, distance, min, max);
-                        int[][] calendario = ingenuousSolutionController.createCalendarSolution();
-
+                         ingenuousSolutionController.createCalendarSolution();
+                        int[][] calendario = ingenuousSolutionController.getMatrixSolution();
                         System.out.println("Calendario de partidos:");
                         for (int[] fila : calendario) {
                             System.out.println(Arrays.toString(fila));
