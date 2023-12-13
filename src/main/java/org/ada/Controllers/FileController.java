@@ -1,6 +1,3 @@
-/**
- * Package que contiene los controladores que se encargan de la logica de la aplicación.
- */
 package org.ada.Controllers;
 
 
@@ -17,6 +14,7 @@ import javax.swing.JOptionPane;
 
 /**
  * Clase que se encarga de leer y escribir archivos de texto.
+ * Esta clase se encarga de leer y escribir archivos de texto que contienen informacion sobre el problema de la generacion de un calendario de partidos.
  */
 @Data
 public class FileController {
@@ -28,6 +26,7 @@ public class FileController {
 
     /**
      * Constructor de la clase FileController.
+     *
      * @param file El objeto File que representa el archivo asociado al controlador.
      */
     public FileController(File file) {
@@ -35,9 +34,10 @@ public class FileController {
     }
 
     /**
-     * Valida el contenido de un archivo que se espera que contenga información sobre el problema.
-     * Lee y procesa la información del archivo, verificando que cumpla con el formato y los requisitos esperados.
-     * @return true si el archivo contiene información válida y se procesa correctamente, false de lo contrario.
+     * Valida el contenido de un archivo que se espera que contenga informacion sobre el problema.
+     * Lee y procesa la informacion del archivo, verificando que cumpla con el formato y los requisitos esperados.
+     *
+     * @return true si el archivo contiene informacion valida y se procesa correctamente, false de lo contrario.
      */
     public boolean validateFileContent() {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -52,14 +52,14 @@ public class FileController {
             if ((line = br.readLine()) != null) {
                 minLength = Integer.parseInt(line);
             } else {
-                JOptionPane.showMessageDialog(null, "El archivo no tiene la longitud mínima especificada.");
+                JOptionPane.showMessageDialog(null, "El archivo no tiene la longitud minima especificada.");
                 return false;
             }
 
             if ((line = br.readLine()) != null) {
                 maxLength = Integer.parseInt(line);
             } else {
-                JOptionPane.showMessageDialog(null, "El archivo no tiene la longitud máxima especificada.");
+                JOptionPane.showMessageDialog(null, "El archivo no tiene la longitud maxima especificada.");
                 return false;
             }
 
@@ -86,26 +86,28 @@ public class FileController {
             return false;
         }
     }
+
     /**
-     * Retorna la matriz de solución con el calendario.
-     * @return  matriz de calendario.
+     * Retorna la matriz de solucion con el calendario.
+     *
+     * @return matriz de calendario.
      */
     public int[][] getCalendarSolution() {
         return distanceCities;
     }
 
     /**
-     * Guarda la matriz de solución en un archivo de texto con información adicional.
+     * Guarda la matriz de solucion en un archivo de texto con informacion adicional.
      *
-     * @param matrix        La matriz de solución que se va a guardar.
+     * @param matrix        La matriz de solucion que se va a guardar.
      * @param teams         El número de equipos.
-     * @param min           El número mínimo permitido de ocurrencias consecutivas.
-     * @param max           El número máximo permitido de ocurrencias consecutivas.
-     * @param directoryPath La ruta del directorio donde se guardará el archivo.
+     * @param min           El número minimo permitido de ocurrencias consecutivas.
+     * @param max           El número maximo permitido de ocurrencias consecutivas.
+     * @param directoryPath La ruta del directorio donde se guardara el archivo.
      */
     private static void saveMatrixToFile(int[][] matrix, int teams, int min, int max, String directoryPath) {
 
-        // Implementar lógica para guardar la matriz en un archivo
+        // Implementar logica para guardar la matriz en un archivo
         String filePath = directoryPath + ".txt";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
@@ -146,27 +148,27 @@ public class FileController {
     // guardar el archivo en un directorio
 
     /**
-     * Permite al usuario seleccionar un directorio y guarda la matriz de solución en un archivo.
+     * Permite al usuario seleccionar un directorio y guarda la matriz de solucion en un archivo.
      *
-     * @param matrix La matriz de solución que se va a guardar.
+     * @param matrix La matriz de solucion que se va a guardar.
      * @param teams  El número de equipos.
-     * @param min    El número mínimo permitido de ocurrencias consecutivas.
-     * @param max    El número máximo permitido de ocurrencias consecutivas.
+     * @param min    El número minimo permitido de ocurrencias consecutivas.
+     * @param max    El número maximo permitido de ocurrencias consecutivas.
      */
     public static void saveFile(int[][] matrix, int teams, int min, int max) {
-        // Crear un cuadro de diálogo para seleccionar el directorio donde se guardará el archivo
+        // Crear un cuadro de dialogo para seleccionar el directorio donde se guardara el archivo
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Seleccionar directorio");
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         fileChooser.setAcceptAllFileFilterUsed(false);
-        // Mostrar el cuadro de diálogo para seleccionar el directorio
+        // Mostrar el cuadro de dialogo para seleccionar el directorio
         int option = fileChooser.showOpenDialog(null);
         // Si el usuario selecciona un directorio
         if (option == JFileChooser.APPROVE_OPTION) {
             // Obtener el directorio seleccionado
             String directoryPath = fileChooser.getSelectedFile().getAbsolutePath();
 
-            // Guardar la matriz de solución en un archivo con información adicional
+            // Guardar la matriz de solucion en un archivo con informacion adicional
             saveMatrixToFile(matrix, teams, min, max, directoryPath);
         }
     }

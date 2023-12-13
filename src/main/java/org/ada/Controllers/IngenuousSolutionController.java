@@ -3,13 +3,13 @@ package org.ada.Controllers;
 import java.util.ArrayList;
 import java.util.Random;
 
-    /**
-    *   IngenuousSolutionController
-    *  Esta clase se encarga de generar una solucion ingenua para el problema de la generacion de un calendario de partidos
-    */
+/**
+ * IngenuousSolutionController
+ * Esta clase se encarga de generar una solucion ingenua para el problema de la generacion de un calendario de partidos
+ */
 public class IngenuousSolutionController {
     Random random = new Random();
-    private static  final int OPPORTUNITIES_SELECT_NUMBER = 100;
+    private static final int OPPORTUNITIES_SELECT_NUMBER = 100;
     private int teams;
     private int[][] distanceCities;
     private final int min;
@@ -17,13 +17,15 @@ public class IngenuousSolutionController {
     private final int[][] calendarSolution;
 
     /**
-    *   IngenuousSolutionController
-    * Este construcutor se encarga de inicializar los atributos de la clase
-    * @param teams
-    * @param distanceCities
-    * @param min
-    * @param max
+     * Controlador para una solución ingenua del problema de la generación de un calendario de partidos.
+     * Inicializa los atributos de la clase.
+     *
+     * @param teams          El número de equipos.
+     * @param distanceCities La matriz de distancias entre ciudades.
+     * @param min            El número mínimo permitido de ocurrencias consecutivas.
+     * @param max            El número máximo permitido de ocurrencias consecutivas.
      */
+
     public IngenuousSolutionController(int teams, int[][] distanceCities, int min, int max) {
         this.teams = teams;
         this.distanceCities = distanceCities;
@@ -33,43 +35,46 @@ public class IngenuousSolutionController {
     }
 
     /**
-    *   getMatrixSolution
-    * Este metodo se encarga de retornar la matriz solucion
-    * @return int[][]
+     * getMatrixSolution
+     * Este metodo se encarga de retornar la matriz solucion
+     *
+     * @return int[][]
      */
-    public int[][] getMatrixSolution(){
+    public int[][] getMatrixSolution() {
         return calendarSolution;
-    };
+    }
+
+    ;
 
     /**
-    *   createCalendarSolution
-    *  Este metodo se encarga de generar una solucion ingenua para el problema de la generacion de un calendario de partidos
-    * @return void
+     * createCalendarSolution
+     * Este metodo se encarga de generar una solucion ingenua para el problema de la generacion de un calendario de partidos
      */
-    public void createCalendarSolution(){
-        try{
+    public void createCalendarSolution() {
+        try {
             int countTimes = 0;
             do {
                 countTimes++;
-                for(int i = 0; i < calendarSolution.length; i++){
+                for (int i = 0; i < calendarSolution.length; i++) {
                     int[] row = generateRow(i);
                     calendarSolution[i] = row;
                 }
 
                 System.out.println("countTimes = " + countTimes);
-            }while(!isValid());
+            } while (!isValid());
 
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     /**
-    *   generateRow
-    * Este metodo se encarga de generar una fila de la matriz solucion
-    * @param row
-    * @return int[]
+     * generateRow
+     * Este metodo se encarga de generar una fila de la matriz solucion
+     *
+     * @param row
+     * @return int[]
      */
     private int[] generateRow(int row) {
         int[] rowGenerated = new int[teams];
@@ -86,13 +91,13 @@ public class IngenuousSolutionController {
     }
 
     /**
-    *   generateValidNumbers
-    * Este metodo se encarga de generar un numero valido para la fila de la matriz solucion
-    * @param rowGenerated
-    * @param currentIndex
-    * @param availableNumbers
-    * @param row
-    * @return void
+     * generateValidNumbers
+     * Este metodo se encarga de generar un numero valido para la fila de la matriz solucion
+     *
+     * @param rowGenerated
+     * @param currentIndex
+     * @param availableNumbers
+     * @param row
      */
     private void generateValidNumbers(int[] rowGenerated, int currentIndex, ArrayList<Integer> availableNumbers, int row) {
         int countOpportunities = 0;
@@ -117,11 +122,12 @@ public class IngenuousSolutionController {
     }
 
     /**
-    *   isValidPlacement
-    * Este metodo se encarga de validar si el numero seleccionado es valido para la fila de la matriz solucion
-    * @param consecutive
-    * @param consecutiveReflex
-    * @return boolean
+     * isValidPlacement
+     * Este metodo se encarga de validar si el numero seleccionado es valido para la fila de la matriz solucion
+     *
+     * @param consecutive
+     * @param consecutiveReflex
+     * @return boolean
      */
     private boolean isValidPlacement(int[] consecutive, int[] consecutiveReflex) {
         return consecutive[0] <= max && consecutive[1] >= min &&
@@ -129,23 +135,24 @@ public class IngenuousSolutionController {
     }
 
     /**
-    *   findAvailableNumbers
-    * Este metodo se encarga de encontrar los numeros disponibles para la fila de la matriz solucion
-    * @param row
-    * @param column
-    * @param arrayRow
-    * @return ArrayList<Integer>
+     * findAvailableNumbers
+     * Este metodo se encarga de encontrar los numeros disponibles para la fila de la matriz solucion
+     *
+     * @param row
+     * @param column
+     * @param arrayRow
+     * @return ArrayList<Integer>
      */
-    private ArrayList<Integer> findAvailableNumbers(int row, int column, int[] arrayRow){
+    private ArrayList<Integer> findAvailableNumbers(int row, int column, int[] arrayRow) {
         ArrayList<Integer> availableNumbers = new ArrayList<>();
         ArrayList<Integer> NoAvailableNumbers = new ArrayList<>();
 
         NoAvailableNumbers.add(column + 1);
         NoAvailableNumbers.add((column + 1) * -1);
 
-        for(int i = 0; i < row; i++){
+        for (int i = 0; i < row; i++) {
             int number = calendarSolution[i][column];
-            if(number != 0){
+            if (number != 0) {
                 NoAvailableNumbers.add(number);
             }
         }
@@ -157,8 +164,8 @@ public class IngenuousSolutionController {
             }
         }
 
-        for(int number = -teams; number <= teams; number++){
-            if(!NoAvailableNumbers.contains(number) && number != 0){
+        for (int number = -teams; number <= teams; number++) {
+            if (!NoAvailableNumbers.contains(number) && number != 0) {
                 availableNumbers.add(number);
             }
         }
@@ -167,18 +174,19 @@ public class IngenuousSolutionController {
     }
 
     /**
-    *   countConsecutive
-    * Este metodo se encarga de contar los numeros consecutivos para la fila de la matriz solucion
-    * @param row
-    * @param column
-    * @param signNumber
-    * @return int[]
+     * countConsecutive
+     * Este metodo se encarga de contar los numeros consecutivos para la fila de la matriz solucion
+     *
+     * @param row
+     * @param column
+     * @param signNumber
+     * @return int[]
      */
-    private int[] countConsecutive(int row, int column, boolean signNumber){
+    private int[] countConsecutive(int row, int column, boolean signNumber) {
         int consecutiveMax = 1;
         int consecutiveMin = 1;
 
-        if((row - max) >= 0) {
+        if ((row - max) >= 0) {
             for (int i = (row - 1); i >= (row - max); i--) {
                 // Cuenta los positivos
                 if (calendarSolution[i][column] != 0 && calendarSolution[i][column] > 0 && signNumber) {
@@ -193,8 +201,8 @@ public class IngenuousSolutionController {
         }
 
 
-        if((row + 1) >= min){
-            for(int i = (row - 1); i >= (row - min + 1); i--){
+        if ((row + 1) >= min) {
+            for (int i = (row - 1); i >= (row - min + 1); i--) {
                 // Cuenta los positivos
                 if (calendarSolution[i][column] != 0 && calendarSolution[i][column] > 0 && signNumber) {
                     consecutiveMin++;
@@ -205,7 +213,7 @@ public class IngenuousSolutionController {
                     consecutiveMin++;
                 }
             }
-        }else{
+        } else {
             consecutiveMin = min;
         }
 
@@ -213,11 +221,12 @@ public class IngenuousSolutionController {
     }
 
     /**
-    *   isValid
-    * Este metodo se encarga de validar si la matriz solucion es valida
-    * @return boolean
+     * isValid
+     * Este metodo se encarga de validar si la matriz solucion es valida
+     *
+     * @return boolean
      */
-    private boolean isValid (){
+    private boolean isValid() {
         int count = 0;
 
         for (int[] ints : calendarSolution) {

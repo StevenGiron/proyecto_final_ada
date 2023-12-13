@@ -17,11 +17,12 @@ import java.util.Arrays;
 public class IndexView {
 
     IngenuousSolutionController ingenuousSolutionController;
+
     public IndexView() {
         this.draw();
     }
 
-    private void draw(){
+    private void draw() {
         JFrame frame = new JFrame("File Chooser Example");
         frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,7 +50,7 @@ public class IndexView {
                         int max = fileCOntroller.getMaxLength();
 
                         ingenuousSolutionController = new IngenuousSolutionController(teams, distance, min, max);
-                         ingenuousSolutionController.createCalendarSolution();
+                        ingenuousSolutionController.createCalendarSolution();
                         int[][] calendario = ingenuousSolutionController.getMatrixSolution();
                         System.out.println("Calendario de partidos:");
                         for (int[] fila : calendario) {
@@ -65,5 +66,5 @@ public class IndexView {
         });
 
         frame.setVisible(true);
-        }
+    }
 }
