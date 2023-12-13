@@ -1,6 +1,8 @@
 package org.ada.Controllers;
 
 
+import lombok.Data;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,6 +12,10 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+/**
+ * Clase que se encarga de leer y escribir archivos de texto.
+ */
+@Data
 public class FileController {
     private File file;
     private int[][] distanceCities;
@@ -76,22 +82,6 @@ public class FileController {
             JOptionPane.showMessageDialog(null, "Error al leer o convertir datos.");
             return false;
         }
-    }
-
-    public int[][] getCalendarSolution() {
-        return distanceCities;
-    }
-
-    public int getNumberTeams() {
-        return numberTeams;
-    }
-
-    public int getMinLength() {
-        return minLength;
-    }
-
-    public int getMaxLength() {
-        return maxLength;
     }
 
     /**
