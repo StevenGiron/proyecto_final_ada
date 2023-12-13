@@ -1,10 +1,7 @@
 package org.ada.Controllers;
 
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class FileController {
     private File file;
@@ -79,5 +76,58 @@ public class FileController {
 
     public int getMaxLength() {
         return maxLength;
+    }
+
+    private static void saveMatrixToFile(int[][] matrix, int teams, int min, int max, String directoryPath) {
+
+        String filePath = directoryPath  + ".txt";
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            writer.write(teams+"");
+            writer.newLine();
+            writer.write(min+"");
+            writer.newLine();
+            writer.write(max+"");
+            writer.newLine();
+
+            for (int[] row : matrix) {
+                writer.write(arrayToString(row));
+                writer.newLine();
+            }
+            System.out.println("Matriz guardada en: " + filePath);
+        } catch (IOException e) {
+            System.out.println("Error al escribir en el archivo: " + e.getMessage());
+        }
+    }
+
+    private static String arrayToString(int[] array) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < array.length; i++) {
+            sb.append(array[i]);
+            if (i < array.length - 1) {
+                sb.append(", ");
+            }
+        }
+        return sb.toString();
+    }
+
+    // guardar el archivo en un directorio
+
+    public static void saveFile(int[][] matrix, int teams, int min, int max) {
+        // Crear un cuadro de diálogo para seleccionar el directorio donde se guardará el archivo
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Seleccionar directorio");
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        // Mostrar el cuadro de diálogo para seleccionar el directorio
+        int option = fileChooser.showOpenDialog(null);
+        // Si el usuario selecciona un directorio
+        if (option == JFileChooser.APPROVE_OPTION) {
+            // Obtener el directorio seleccionado
+            String directoryPath  = fileChooser.getSelectedFile().getAbsolutePath();
+
+            // Guardar la matriz de solución en un archivo con información adicional
+            saveMatrixToFile(matrix, teams, min, max, directoryPath);
+        }
     }
 }
