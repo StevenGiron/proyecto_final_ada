@@ -1,3 +1,6 @@
+/**
+ * Package que contiene los controladores que se encargan de la logica de la aplicación.
+ */
 package org.ada.Controllers;
 
 
@@ -82,6 +85,13 @@ public class FileController {
             JOptionPane.showMessageDialog(null, "Error al leer o convertir datos.");
             return false;
         }
+    }
+    /**
+     * Retorna la matriz de solución con el calendario.
+     * @return  matriz de calendario.
+     */
+    public int[][] getCalendarSolution() {
+        return distanceCities;
     }
 
     /**

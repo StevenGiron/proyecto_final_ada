@@ -18,12 +18,11 @@ public class IngenuousSolutionController {
 
     /**
     *   IngenuousSolutionController
-    * Este metodo se encarga de inicializar los atributos de la clase
+    * Este construcutor se encarga de inicializar los atributos de la clase
     * @param teams
     * @param distanceCities
     * @param min
     * @param max
-    * @return void
      */
     public IngenuousSolutionController(int teams, int[][] distanceCities, int min, int max) {
         this.teams = teams;
