@@ -2,12 +2,12 @@ package org.ada.Controllers;
 
 import java.util.Arrays;
 
-public class roundRobin {
+public class RoundRobinController {
     private int teamsCount;
     private int[][] distanceMatrix;
     private int[][] schedule;
 
-    public roundRobin(int teamsCount) {
+    public RoundRobinController(int teamsCount) {
         this.teamsCount = teamsCount;
         // this.distanceMatrix = distanceMatrix;
         this.schedule = new int[2 * (teamsCount - 1)][teamsCount];
@@ -15,9 +15,9 @@ public class roundRobin {
 
     public void solve() {
         // Inicializar el calendario con 0 para indicar que no se han asignado partidos
-        for (int[] round : schedule) {
+        /*for (int[] round : schedule) {
             Arrays.fill(round, 0);
-        }
+        }*/
 
         // Ejemplo de generación de un calendario round-robin
         for (int round = 0; round < teamsCount - 1; round++) {
@@ -31,7 +31,7 @@ public class roundRobin {
                 }
 
                 // Asignar partidos en casa y fuera
-                schedule[round][home] = away + 1; // +1 para ajustar el índice del equipo (de 0 a n-1) a un identificador de equipo (de 1 a n)
+                schedule[round][home] = (away + 1); // +1 para ajustar el índice del equipo (de 0 a n-1) a un identificador de equipo (de 1 a n)
                 schedule[round][away] = -(home + 1); // Negativo para indicar partido fuera
 
                 // Asignar partidos de vuelta
