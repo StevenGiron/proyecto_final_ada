@@ -76,7 +76,7 @@ public class IngenuousSolutionController {
      * @param row
      * @return int[]
      */
-    private int[] generateRow(int row) {
+    public int[] generateRow(int row) {
         int[] rowGenerated = new int[teams];
 
         for (int i = 0; i < rowGenerated.length; i++) {
@@ -99,7 +99,7 @@ public class IngenuousSolutionController {
      * @param availableNumbers
      * @param row
      */
-    private void generateValidNumbers(int[] rowGenerated, int currentIndex, ArrayList<Integer> availableNumbers, int row) {
+    public void generateValidNumbers(int[] rowGenerated, int currentIndex, ArrayList<Integer> availableNumbers, int row) {
         int countOpportunities = 0;
 
         int[] consecutive;
@@ -129,7 +129,7 @@ public class IngenuousSolutionController {
      * @param consecutiveReflex
      * @return boolean
      */
-    private boolean isValidPlacement(int[] consecutive, int[] consecutiveReflex) {
+    public boolean isValidPlacement(int[] consecutive, int[] consecutiveReflex) {
         return consecutive[0] <= max && consecutive[1] >= min &&
                 consecutiveReflex[0] <= max && consecutiveReflex[1] >= min;
     }
@@ -141,9 +141,9 @@ public class IngenuousSolutionController {
      * @param row
      * @param column
      * @param arrayRow
-     * @return ArrayList<Integer>
+     * @return ArrayList&lt;Integer&gt;
      */
-    private ArrayList<Integer> findAvailableNumbers(int row, int column, int[] arrayRow) {
+    public ArrayList<Integer> findAvailableNumbers(int row, int column, int[] arrayRow) {
         ArrayList<Integer> availableNumbers = new ArrayList<>();
         ArrayList<Integer> NoAvailableNumbers = new ArrayList<>();
 
@@ -182,7 +182,7 @@ public class IngenuousSolutionController {
      * @param signNumber
      * @return int[]
      */
-    private int[] countConsecutive(int row, int column, boolean signNumber) {
+    public int[] countConsecutive(int row, int column, boolean signNumber) {
         int consecutiveMax = 1;
         int consecutiveMin = 1;
 
@@ -226,7 +226,7 @@ public class IngenuousSolutionController {
      *
      * @return boolean
      */
-    private boolean isValid() {
+    public boolean isValid() {
         int count = 0;
 
         for (int[] ints : calendarSolution) {
