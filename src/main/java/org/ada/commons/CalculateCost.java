@@ -1,10 +1,10 @@
-package org.ada.Controllers;
+package org.ada.commons;
 
 /**
- * La clase Commons representa un conjunto de utilidades comunes entre las clases que manejan la logica de la aplicaicon 
+ * La clase CalculateCost representa un conjunto de utilidades comunes entre las clases que manejan la logica de la aplicaicon
  * y nos permite evitar la duplicidad de codigo
  */
-public class Commons {
+public class CalculateCost {
 
      /**
      * Calcula el costo total de un torneo en función de los costos de viaje entre ciudades
@@ -45,13 +45,6 @@ public class Commons {
             }
             totalTournamentCost += teamCosts[team];
         }
-
-      
-        for (int i = 0; i < teamCosts.length; i++) {
-            System.out.println("Costo total para el equipo " + (i + 1) + ": " + teamCosts[i]);
-        }
-
-        System.out.println("Costo total torneo: " + totalTournamentCost);
 
         return totalTournamentCost;
     }
