@@ -1,5 +1,6 @@
 package org.ada.controllers;
 
+import org.ada.controllers.*;
 import org.ada.commons.CalculateCost;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class GeneticAlgorithmController {
      * POPULATON_SIZE
      * Esta constante es la que se encarga de manejar el tamano de la poblacion
      */
-    public static final int POPULATION_SIZE = 20000;
+    public static final int POPULATION_SIZE = 1000;
     /**
      * MUTATION_RATE
      * Esta constante se encarga de manejar la probabilidad de mutacion del individuo
@@ -25,7 +26,7 @@ public class GeneticAlgorithmController {
      * MAX_GENERATIONS
      * Esta constante se encarga de controlar el numero de generaciones que se van a producir
      */
-    public static final int MAX_GENERATIONS = 100;
+    public static final int MAX_GENERATIONS = 1000;
     private final Random random = new Random();
     private final int max;
     private final int min;

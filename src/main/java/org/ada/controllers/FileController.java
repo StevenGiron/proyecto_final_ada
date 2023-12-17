@@ -105,7 +105,7 @@ public class FileController {
      * @param max           El número maximo permitido de ocurrencias consecutivas.
      * @param directoryPath La ruta del directorio donde se guardara el archivo.
      */
-    private static void saveMatrixToFile(int[][] matrix, int teams, int min, int max, String directoryPath) {
+    private void saveMatrixToFile(int[][] matrix, int teams, int min, int max, String directoryPath) {
 
         // Implementar logica para guardar la matriz en un archivo
         String filePath = directoryPath + ".txt";
@@ -155,7 +155,7 @@ public class FileController {
      * @param min    El número minimo permitido de ocurrencias consecutivas.
      * @param max    El número maximo permitido de ocurrencias consecutivas.
      */
-    public static void saveFile(int[][] matrix, int teams, int min, int max) {
+    public void saveFile(int[][] matrix, int teams, int min, int max) {
         // Crear un cuadro de dialogo para seleccionar el directorio donde se guardara el archivo
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Seleccionar directorio");
