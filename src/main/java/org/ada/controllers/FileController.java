@@ -1,4 +1,4 @@
-package org.ada.Controllers;
+package org.ada.controllers;
 
 
 import lombok.Data;

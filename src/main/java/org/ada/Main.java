@@ -1,45 +1,23 @@
 package org.ada;
 
-import org.ada.Controllers.GeneticAlgorithmController;
-import org.ada.Controllers.IngenuousSolutionController;
-import org.ada.Controllers.RoundRobinController;
-import org.ada.Views.IndexView;
-
-import java.util.Arrays;
+import org.ada.views.IndexView;
 
 public class Main {
     public static void main(String[] args) {
-        int teams = 4;
+        /*int teams = 8;
         int min = 1;
-        int max = 1;
-        int[][] distance = {
-                {0, 745, 665, 929},
-                {745, 0, 80, 337},
-                {665, 80, 0, 380},
-                {929, 337, 380, 0},
-        };
-        /*IngenuousSolutionController controller = new IngenuousSolutionController(team, distance, min, max);
-        controller.createCalendarSolution();
-        int[][] calendarSolution = controller.getMatrixSolution();
+        int max = 7;
+        int[][] distanceCities = {
+            {0, 184, 222, 177, 216, 231, 120, 60},
+            {184, 0, 45, 123, 128, 200, 52, 100},
+            {222, 45, 0, 129, 121, 203, 15, 300},
+            {177, 123, 129, 0, 46, 83, 250, 15},
+            {216, 128, 121, 46, 0, 83, 100, 7},
+            {231, 200, 203, 83, 83, 0, 20, 10},
+            {120, 52, 15, 250, 100, 20, 0, 441},
+            {60, 100, 300, 15, 7, 10, 441, 54}
+        };*/
 
-        System.out.println("Matriz solucion");
-        for (int[] row : calendarSolution) {
-            System.out.println(Arrays.toString(row));
-        }*/
-
-        int populationSize = 4;
-        double mutationRate = 0.1;
-
-
-
-        GeneticAlgorithmController geneticAlgorithm = new GeneticAlgorithmController(populationSize, mutationRate, distance, teams);
-        int[][] bestSolution = geneticAlgorithm.geneticAlgorithm();
-
-
-        System.out.println("Mejor solucion");
-        for (int[] row : bestSolution) {
-            System.out.println(Arrays.toString(row));
-        }
-        //new IndexView();
+        new IndexView();
     }
 }

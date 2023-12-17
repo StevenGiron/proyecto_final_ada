@@ -1,4 +1,4 @@
-package org.ada.Controllers;
+package org.ada.controllers;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -35,6 +35,28 @@ public class IngenuousSolutionController {
     }
 
     /**
+     * assignOptimalRoute
+     * Este metodo se encarga de asignar la ruta optima a la matriz solucion
+     *
+     * @param route
+     */
+    public void assignOptimalRoute(int[] route){
+        try {
+            for (int i = 1; i < route.length; i++) {
+                if(i <= max){
+                    int start = route[0];
+                    int number = route[i] + 1;
+
+                    calendarSolution[i + teams - 2][start] = -number;
+                    calendarSolution[i + teams - 2][route[i]] = (start + 1);
+                }
+            }
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
      * getMatrixSolution
      * Este metodo se encarga de retornar la matriz solucion
      *
@@ -43,8 +65,6 @@ public class IngenuousSolutionController {
     public int[][] getMatrixSolution() {
         return calendarSolution;
     }
-
-    ;
 
     /**
      * createCalendarSolution
@@ -60,7 +80,7 @@ public class IngenuousSolutionController {
                     calendarSolution[i] = row;
                 }
 
-                System.out.println("countTimes = " + countTimes);
+//                System.out.println("countTimes = " + countTimes);
             } while (!isValid());
 
 
@@ -95,11 +115,11 @@ public class IngenuousSolutionController {
      * Este metodo se encarga de generar un numero valido para la fila de la matriz solucion
      *
      * @param rowGenerated
-     * @param currentIndex
+     * @param column
      * @param availableNumbers
      * @param row
      */
-    public void generateValidNumbers(int[] rowGenerated, int currentIndex, ArrayList<Integer> availableNumbers, int row) {
+    public void generateValidNumbers(int[] rowGenerated, int column, ArrayList<Integer> availableNumbers, int row) {
         int countOpportunities = 0;
 
         int[] consecutive;
@@ -107,14 +127,14 @@ public class IngenuousSolutionController {
         do {
             countOpportunities++;
             int numberSelected = availableNumbers.get(random.nextInt(availableNumbers.size()));
-            int numberReflex = numberSelected > 0 ? (currentIndex + 1) * -1 : (currentIndex + 1);
+            int numberReflex = numberSelected > 0 ? (column + 1) * -1 : (column + 1);
             int indexReflex = (numberSelected > 0 ? numberSelected : numberSelected * -1) - 1;
 
-            consecutive = countConsecutive(row, currentIndex, (numberSelected > 0));
+            consecutive = countConsecutive(row, column, (numberSelected > 0));
             consecutiveReflex = countConsecutive(row, indexReflex, (numberReflex > 0));
 
             if (isValidPlacement(consecutive, consecutiveReflex)) {
-                rowGenerated[currentIndex] = numberSelected;
+                rowGenerated[column] = numberSelected;
                 rowGenerated[indexReflex] = numberReflex;
             }
 
