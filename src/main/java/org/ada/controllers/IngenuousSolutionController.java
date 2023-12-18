@@ -35,28 +35,6 @@ public class IngenuousSolutionController {
     }
 
     /**
-     * assignOptimalRoute
-     * Este metodo se encarga de asignar la ruta optima a la matriz solucion
-     *
-     * @param route
-     */
-    public void assignOptimalRoute(int[] route){
-        try {
-            for (int i = 1; i < route.length; i++) {
-                if(i <= max){
-                    int start = route[0];
-                    int number = route[i] + 1;
-
-                    calendarSolution[i + teams - 2][start] = -number;
-                    calendarSolution[i + teams - 2][route[i]] = (start + 1);
-                }
-            }
-        }catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    /**
      * getMatrixSolution
      * Este metodo se encarga de retornar la matriz solucion
      *
@@ -72,17 +50,15 @@ public class IngenuousSolutionController {
      */
     public void createCalendarSolution() {
         try {
-            int countTimes = 0;
+
             do {
-                countTimes++;
+
                 for (int i = 0; i < calendarSolution.length; i++) {
                     int[] row = generateRow(i);
                     calendarSolution[i] = row;
                 }
 
-//                System.out.println("countTimes = " + countTimes);
             } while (!isValid());
-
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
