@@ -16,7 +16,7 @@ public class GeneticAlgorithmController {
      * POPULATON_SIZE
      * Esta constante es la que se encarga de manejar el tamano de la poblacion
      */
-    public static final int POPULATION_SIZE = 1000;
+    public static final int POPULATION_SIZE = 3000;
     /**
      * MUTATION_RATE
      * Esta constante se encarga de manejar la probabilidad de mutacion del individuo
