@@ -4,15 +4,15 @@ import org.ada.controllers.GeneticAlgorithmController;
 import org.ada.controllers.IngenuousSolutionController;
 import org.ada.controllers.FileController;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.GridLayout;
 import java.io.File;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class IndexView {
     private JFrame frame;
