@@ -26,21 +26,18 @@ public class CalculateCost {
         for (int team = 0; team < distance.length; team++) {
             int currentCity = team;
             for (int match = 0; match < calendar.length; match++) {
-                int opponent = Math.abs(calendar[match][team]) - 1; // Convert to zero-based index
+                int opponent = Math.abs(calendar[match][team]) - 1;
                 boolean isHomeGame = calendar[match][team] > 0;
 
                 if (!isHomeGame) {
-                    // Team travels to opponent's city
                     teamCosts[team] += distance[currentCity][opponent];
                     currentCity = opponent;
                 } else if (currentCity != team) {
-                    // Team returns home after an away game
                     teamCosts[team] += distance[currentCity][team];
                     currentCity = team;
                 }
             }
             if (currentCity != team) {
-                // Team returns home after the last away game
                 teamCosts[team] += distance[currentCity][team];
             }
             totalTournamentCost += teamCosts[team];
