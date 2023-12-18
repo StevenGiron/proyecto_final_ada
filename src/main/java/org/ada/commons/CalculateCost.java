@@ -10,38 +10,38 @@ public class CalculateCost {
      * Calcula el costo total de un torneo en función de los costos de viaje entre ciudades
      * y el calendario de partidos.
      *
-     * @param costos Matriz de costos entre ciudades, donde costos[i][j] es el costo de viajar
+     * @param distance Matriz de costos entre ciudades, donde costos[i][j] es el costo de viajar
      *               desde la ciudad i a la ciudad j.
-     * @param calendario Matriz de calendario que representa los partidos y su ubicacion,
+     * @param calendar Matriz de calendario que representa los partidos y su ubicacion,
      *                   donde calendario[i][j] es el numero del partido i para el equipo j.
      *                   El signo de calendario[i][j] indica si el equipo j juega en casa o fuera
      *                   de casa (positivo para jugar en casa, negativo para jugar fuera).
      * @return El costo total del torneo, que es la suma de los costos de viaje de todos los equipos.
      */
 
-    public static int calculateTotalCost(int[][] costos, int[][] calendario) {
+    public static int calculateTotalCost(int[][] distance, int[][] calendar) {
         int totalTournamentCost = 0;
-        int[] teamCosts = new int[costos.length];
+        int[] teamCosts = new int[distance.length];
 
-        for (int team = 0; team < costos.length; team++) {
+        for (int team = 0; team < distance.length; team++) {
             int currentCity = team;
-            for (int match = 0; match < calendario.length; match++) {
-                int opponent = Math.abs(calendario[match][team]) - 1; // Convert to zero-based index
-                boolean isHomeGame = calendario[match][team] > 0;
+            for (int match = 0; match < calendar.length; match++) {
+                int opponent = Math.abs(calendar[match][team]) - 1; // Convert to zero-based index
+                boolean isHomeGame = calendar[match][team] > 0;
 
                 if (!isHomeGame) {
                     // Team travels to opponent's city
-                    teamCosts[team] += costos[currentCity][opponent];
+                    teamCosts[team] += distance[currentCity][opponent];
                     currentCity = opponent;
                 } else if (currentCity != team) {
                     // Team returns home after an away game
-                    teamCosts[team] += costos[currentCity][team];
+                    teamCosts[team] += distance[currentCity][team];
                     currentCity = team;
                 }
             }
             if (currentCity != team) {
                 // Team returns home after the last away game
-                teamCosts[team] += costos[currentCity][team];
+                teamCosts[team] += distance[currentCity][team];
             }
             totalTournamentCost += teamCosts[team];
         }
